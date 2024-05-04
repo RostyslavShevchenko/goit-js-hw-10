@@ -4,11 +4,13 @@ import iziToast from "izitoast";
 import "izitoast/dist/css/iziToast.min.css";
 
 iziToast.settings({
-    timeout: 5000,
-    resetOnHover: false,
-    backgroundColor: 'yellow',
-    messageColor: 'blue',
-    position: "topRight",
+  timeout: 5000,
+  resetOnHover: false,
+  backgroundColor: '#ef4040',
+  messageColor: '#fff',
+  position: "topRight",
+  iconUrl: '../img/timer-warning.svg',
+  close: false
 });
 
 let userSelectedDate = null;
@@ -24,7 +26,6 @@ const options = {
     onClose(selectedDates) {
     if (selectedDates[0] < new Date()) {
       iziToast.warning({
-    // title: 'Hey',
     message: 'Please choose a date in the future'
 });
       startBtn.disabled = true;
@@ -44,21 +45,13 @@ function convertMs(ms) {
   const hour = minute * 60;
   const day = hour * 24;
 
-  // Remaining days
   const days = Math.floor(ms / day);
-  // Remaining hours
   const hours = Math.floor((ms % day) / hour);
-  // Remaining minutes
   const minutes = Math.floor(((ms % day) % hour) / minute);
-  // Remaining seconds
   const seconds = Math.floor((((ms % day) % hour) % minute) / second);
 
   return { days, hours, minutes, seconds };
 }
-
-console.log(convertMs(2000));
-console.log(convertMs(140000));
-console.log(convertMs(24140000));
 
 startBtn.addEventListener('click', () => startCountdown(userSelectedDate))
 
@@ -100,5 +93,5 @@ function startCountdown(targetDate) {
     dateTimePicker.disabled = false;
 }
   }
-  counter(); // Викликаємо функцію counter вручну для відображення відліку відразу
+  counter();
 }
